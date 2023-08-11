@@ -6,14 +6,17 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
-import backguru.test.redis.User;
 
 @SpringBootTest
 class RedisApplicationTests {
+
 	@Autowired
 	private RedisTemplate<String, User> redisTemplate;
-	
+	@Autowired
+	private RedisConnectionFactory connectionFactory;
+
 	private final String redisKey = "tony";
 	private final String name = "tonycho";
 	private final int age = 48;
@@ -34,5 +37,6 @@ class RedisApplicationTests {
 		assertThat(user.getAge()).isEqualTo(age);
 		
 		System.out.println("Name:" + user.getName() + ", age:" + user.getAge());
+		connectionFactory.getConnection().serverCommands().flushAll();
 	}
 }

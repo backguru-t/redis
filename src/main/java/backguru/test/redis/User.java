@@ -1,13 +1,11 @@
 package backguru.test.redis;
 
-import java.io.Serializable;
-
 import lombok.*;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class User implements Serializable {
+public class User {
 	private String name;
 	private int age;
 }
