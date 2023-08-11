@@ -60,4 +60,6 @@ public <T> Optional<T> getData(String key, Class<T> classType) {
 }
 ```
 
-출처: https://velog.io/@kshired/Spring-Redis%EC%97%90%EC%84%9C-%EA%B0%9D%EC%B2%B4-%EC%BA%90%EC%8B%B1%ED%95%98%EA%B8%B0
+출처
+https://velog.io/@kshired/Spring-Redis%EC%97%90%EC%84%9C-%EA%B0%9D%EC%B2%B4-%EC%BA%90%EC%8B%B1%ED%95%98%EA%B8%B0
+https://blog.naver.com/PostView.nhn?blogId=cutesboy3&logNo=222285071695&categoryNo=22&parentCategoryNo=0&viewDate=&currentPage=1&postListTopCurrentPage=1&from=postView
