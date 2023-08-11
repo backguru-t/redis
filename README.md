@@ -1,5 +1,5 @@
 # Redis Test
-## 빈 설정
+## RedisTemplate Bean 생성
 RedisTemplate과 RedisConnectionFactory를 Bean으로 생성하기 위해 @SpringBootApplication이 달려 있는 메인 클래스에서 구현하였다.
 @SpringBootApplication이 @Configuration 어노테이션을 포함하고 있기 때문이다. 그리고 실제로 구체적으로 redis 설정을 하기 위해 직접
 RedisStandaloneConfiguration을 생성하여 LettuceConnectionFactory를 리턴하도록 했다.
