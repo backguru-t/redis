@@ -32,11 +32,11 @@ class RedisApplicationTests {
 	@DisplayName("Redis Read: Jackson2JsonRedisSerializer")
 	@Test
 	public void getRedis() {
-		User user = redisTemplate.opsForValue().get(redisKey);
-		assertThat(user.getName()).isEqualTo(name);
-		assertThat(user.getAge()).isEqualTo(age);
+		User cached = redisTemplate.opsForValue().get(redisKey);
+		assertThat(cached.getName()).isEqualTo(name);
+		assertThat(cached.getAge()).isEqualTo(age);
 		
-		System.out.println("Name:" + user.getName() + ", age:" + user.getAge());
+		System.out.println("Name:" + cached.getName() + ", age:" + cached.getAge());
 		connectionFactory.getConnection().serverCommands().flushAll();
 	}
 }
