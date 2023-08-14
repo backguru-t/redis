@@ -2,6 +2,8 @@ package backguru.test.redis;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +15,11 @@ import org.springframework.data.redis.core.RedisTemplate;
 class RedisApplicationTests {
 
 	@Autowired
-	private RedisTemplate<String, User> redisTemplate;
+	private RedisTemplate<String, Object> redisTemplate;
 	@Autowired
 	private RedisConnectionFactory connectionFactory;
+	@Autowired
+	private ObjectMapper objectMapper;
 
 	private final String redisKey = "tony";
 	private final String name = "tonycho";
@@ -25,18 +29,19 @@ class RedisApplicationTests {
 	
 	@DisplayName("Redis Write: Jackson2JsonRedisSerializer")
 	@Test
-	public void putRedis() {
-		redisTemplate.opsForValue().set(redisKey, user);
+	public void putRedis() throws JsonProcessingException {
+		redisTemplate.opsForValue().set(redisKey, objectMapper.writeValueAsString(user));
 	}
 	
 	@DisplayName("Redis Read: Jackson2JsonRedisSerializer")
 	@Test
-	public void getRedis() {
-		User cached = redisTemplate.opsForValue().get(redisKey);
-		assertThat(cached.getName()).isEqualTo(name);
-		assertThat(cached.getAge()).isEqualTo(age);
-		
-		System.out.println("Name:" + cached.getName() + ", age:" + cached.getAge());
+	public void getRedis() throws JsonProcessingException {
+		String cached = (String)redisTemplate.opsForValue().get(redisKey);
+		User user = objectMapper.readValue(cached, User.class);
+		assertThat(user.getName()).isEqualTo(name);
+		assertThat(user.getAge()).isEqualTo(age);
+
+		System.out.println("Name:" + user.getName() + ", age:" + user.getAge());
 		connectionFactory.getConnection().serverCommands().flushAll();
 	}
 }

@@ -24,12 +24,12 @@ public class RedisApplication {
 		return new LettuceConnectionFactory(config);
 	}
 	@Bean
-	public RedisTemplate<String, User> redisTemplate() {
-		RedisTemplate<String, User> redisTemplate = new RedisTemplate<>();
+	public RedisTemplate<String, Object> redisTemplate() {
+		RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
 		
 		redisTemplate.setConnectionFactory(redisConnectionFactory());
 		redisTemplate.setKeySerializer(new StringRedisSerializer());
-		redisTemplate.setDefaultSerializer(new Jackson2JsonRedisSerializer<>(User.class));
+		redisTemplate.setValueSerializer(new StringRedisSerializer());
 		return redisTemplate;
 	}
 	
